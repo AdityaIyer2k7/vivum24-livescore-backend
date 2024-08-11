@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scoring system</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js"></script>
+</head>
+<body>
+    <h1 class="divParent">{{sport}}</h1>
+    {% if config["hasSets"] %}
+    <div id="divSets" class="divParent">
+        <p style="grid-column: 1; grid-row: 1; text-align: center; margin-right: 1vw;">Sets</p>
+        <div id="divSetsT1">
+            <p>{{school1}}</p>
+            <input type="number" id="team1set1" value="{{data['team1sets'][1-1]}}" placeholder="Set 1">
+            <input type="number" id="team1set2" value="{{data['team1sets'][2-1]}}" placeholder="Set 2">
+            <input type="number" id="team1set3" value="{{data['team1sets'][3-1]}}" placeholder="Set 3">
+            <input type="number" id="team1set4" value="{{data['team1sets'][4-1]}}" placeholder="Set 4">
+            <input type="number" id="team1set5" value="{{data['team1sets'][5-1]}}" placeholder="Set 5">
+            <input type="number" id="team1set6" value="{{data['team1sets'][6-1]}}" placeholder="Set 6">
+        </div>
+        <div id="divSetsT2">
+            <p>{{school2}}</p>
+            <input type="number" id="team2set1" value="{{data['team2sets'][1-1]}}" placeholder="Set 1">
+            <input type="number" id="team2set2" value="{{data['team2sets'][2-1]}}" placeholder="Set 2">
+            <input type="number" id="team2set3" value="{{data['team2sets'][3-1]}}" placeholder="Set 3">
+            <input type="number" id="team2set4" value="{{data['team2sets'][4-1]}}" placeholder="Set 4">
+            <input type="number" id="team2set5" value="{{data['team2sets'][5-1]}}" placeholder="Set 5">
+            <input type="number" id="team2set6" value="{{data['team2sets'][6-1]}}" placeholder="Set 6">
+        </div>
+    </div>
+    {% endif %}
+    <div id="divMain" class="divParent">
+        <h2 style="grid-column: 1;">{{school1}}</h2>
+        <h2 style="grid-column: 2;">{{school2}}</h2>
+        {% if config["hasGames"] %}
+        <h3 style="grid-column: span 2;">Games Won</h3>
+        <input style="grid-column: 1; margin-bottom: 1vh;" type="number" id="team1games" value="{{data['team1games']}}" placeholder="Games Won" disabled="true">
+        <input style="grid-column: 2; margin-bottom: 1vh;" type="number" id="team2games" value="{{data['team2games']}}" placeholder="Games Won" disabled="true">
+        {% endif %}
+        <h3 style="grid-column: span 2;">Scores</h3>
+        <input style="grid-column: 1; margin-bottom: 1vh;" type="number" id="team1score" value="{{data['team1score']}}" placeholder="Score" disabled="true">
+        <input style="grid-column: 2; margin-bottom: 1vh;" type="number" id="team2score" value="{{data['team2score']}}" placeholder="Score" disabled="true">
+        {% if not config["isTennis"] %}
+        <div style="grid-column: 1;">
+            <button type="button" onclick="changeScore1(-3)">-3</button>
+            <button type="button" onclick="changeScore1(-2)">-2</button>
+            <button type="button" onclick="changeScore1(-1)">-1</button>
+            <button type="button" onclick="setScore1(0)">RESET</button>
+            <button type="button" onclick="changeScore1(1)">+1</button>
+            <button type="button" onclick="changeScore1(2)">+2</button>
+            <button type="button" onclick="changeScore1(3)">+3</button>
+        </div>
+        <div style="grid-column: 2;">
+            <button type="button" onclick="changeScore2(-3)">-3</button>
+            <button type="button" onclick="changeScore2(-2)">-2</button>
+            <button type="button" onclick="changeScore2(-1)">-1</button>
+            <button type="button" onclick="setScore2(0)">RESET</button>
+            <button type="button" onclick="changeScore2(1)">+1</button>
+            <button type="button" onclick="changeScore2(2)">+2</button>
+            <button type="button" onclick="changeScore2(3)">+3</button>
+        </div>
+        {% else %}
+        <div style="grid-column: 1;">
+            <button type="button" onclick="setScore1(0)">0</button>
+            <button type="button" onclick="setScore1(15)">15</button>
+            <button type="button" onclick="setScore1(30)">30</button>
+            <button type="button" onclick="setScore1(40)">40</button>
+            <button type="button" onclick="setScore1(45)">ADV</button>
+            <button type="button" onclick="winGame1()">Win</button>
+        </div>
+        <div style="grid-column: 2;">
+            <button type="button" onclick="setScore2(0)">0</button>
+            <button type="button" onclick="setScore2(15)">15</button>
+            <button type="button" onclick="setScore2(30)">30</button>
+            <button type="button" onclick="setScore2(40)">40</button>
+            <button type="button" onclick="setScore2(45)">ADV</button>
+            <button type="button" onclick="winGame2()">Win</button>
+        </div>
+        {% endif %}
+        {% if config["hasPenalty"] %}
+        <h3 style="grid-column: span 2;">Penalty Shootout Scores</h3>
+        <input style="grid-column: 1; margin-bottom: 1vh;" type="number" id="team1penscore" value="{{data['team1penscore']}}" placeholder="Penalty Points" disabled="true">
+        <input style="grid-column: 2; margin-bottom: 1vh;" type="number" id="team2penscore" value="{{data['team2penscore']}}" placeholder="Penalty Points" disabled="true">
+        <div style="grid-column: 1;">
+            <button type="button" onclick="changePenScore1(-3)">-3</button>
+            <button type="button" onclick="changePenScore1(-2)">-2</button>
+            <button type="button" onclick="changePenScore1(-1)">-1</button>
+            <button type="button" onclick="setPenScore1(0)">RESET</button>
+            <button type="button" onclick="changePenScore1(1)">+1</button>
+            <button type="button" onclick="changePenScore1(2)">+2</button>
+            <button type="button" onclick="changePenScore1(3)">+3</button>
+        </div>
+        <div style="grid-column: 2;">
+            <button type="button" onclick="changePenScore2(-3)">-3</button>
+            <button type="button" onclick="changePenScore2(-2)">-2</button>
+            <button type="button" onclick="changePenScore2(-1)">-1</button>
+            <button type="button" onclick="setPenScore2(0)">RESET</button>
+            <button type="button" onclick="changePenScore2(1)">+1</button>
+            <button type="button" onclick="changePenScore2(2)">+2</button>
+            <button type="button" onclick="changePenScore2(3)">+3</button>
+        </div>
+        {% endif %}
+    </div>
+    <div id="divSend" class="divParent"></div>
+</body>
+</html>
