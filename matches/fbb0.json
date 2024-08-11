@@ -1,17 +1,21 @@
 {
-    "sport": "Football Boys",
-    "time": "09:00:00",
-    "school1": "TISB",
-    "school2": "Candor",
-    "data": {
-        "team1score": 0,
-        "team2score": 0,
-        "team1penscore": 0,
-        "team2penscore": 0
-    },
-    "config": {
-        "hasSets": false,
-        "hasGames": false,
-        "hasPenalty": true
-    }
+ "sport": "Football Boys",
+ "time": "09:00:00",
+ "school1": "TISB",
+ "school2": "Candor",
+ "data": {
+  "team1score": 9,
+  "team2score": 4,
+  "team1games": null,
+  "team2games": null,
+  "team1penscore": 5,
+  "team2penscore": -5,
+  "team1sets": [],
+  "team2sets": []
+ },
+ "config": {
+  "hasSets": false,
+  "hasGames": false,
+  "hasPenalty": true
+ }
 }
